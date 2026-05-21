@@ -3,12 +3,14 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime
 
-print(f"🟢 Rerun at: {datetime.now()}")
+# 1. Page Config must be FIRST
+st.set_page_config(page_title="HDB Resale Dashboard", layout="wide")
+
 
 DATA_PATH = "./data/resale_data.csv"
 # Sets the page configuration
 # You can set the page title and layout here
-st.set_page_config(page_title="HDB Resale Dashboard", layout="wide")
+
 
 
 # df = pd.read_csv(DATA_PATH)
@@ -16,7 +18,8 @@ st.set_page_config(page_title="HDB Resale Dashboard", layout="wide")
 # If the data had been cleaned earlier, this step might not be necessary
 # df["month"] = pd.to_datetime(df["month"])
 
-@st.cache_data
+# 2. Cached data loading
+@st.cache_data(show_spinner="Loading HDB Data...")
 def load_data(path):
     df = pd.read_csv(path)
     df["month"] = pd.to_datetime(df["month"])
